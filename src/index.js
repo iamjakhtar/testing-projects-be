@@ -9,6 +9,7 @@ import Projects from "./Projects";
 import reportWebVitals from "./reportWebVitals";
 import ProjectDetails from "./ProjectDetails";
 import EditProject from "./EditProject";
+import { ChakraBaseProvider } from "@chakra-ui/react";
 
 const router = createBrowserRouter([
   {
@@ -37,7 +38,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <RouterProvider router={router}>
-    <App />
+    <ChakraBaseProvider>
+      <App />
+    </ChakraBaseProvider>
   </RouterProvider>
 );
 

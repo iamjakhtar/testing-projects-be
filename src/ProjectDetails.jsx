@@ -1,11 +1,11 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { formatImageUrl } from "./imagePathFormatter";
+
 
 const ProjectDetails = () => {
   const { state } = useLocation();
   const { project } = state;
   const navigate = useNavigate();
-  const imagePath = formatImageUrl(project.imageUrl);
+  const imagePath = project.imageUrl;
   const handleDelete = async (id) => {
     try {
         const response = await fetch("http://localhost:8080/projects/" + id, {

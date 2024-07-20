@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { formatImageUrl } from "./imagePathFormatter";
 import { defaultFormData } from "./AddProject";
 
 const fetchProjectById = async (id, setterFunc) => {
@@ -72,7 +71,7 @@ const EditProject = () => {
   }
 
   const { name, description, budget } = projectToEdit;
-  const imagePath = projectToEdit ? formatImageUrl(projectToEdit.imageUrl) : "";
+  const imagePath = projectToEdit ? projectToEdit.imageUrl : "";
   return (
     <div>
       <form onSubmit={handleEdit}>

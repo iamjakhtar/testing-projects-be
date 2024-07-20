@@ -26,7 +26,7 @@ const AddProject = () => {
           data.append('image', image);
         }
 
-        const response = await fetch("http://localhost:8080/projects/add-project", {
+        const response = await fetch("http://localhost:8080/projects", {
           method: 'POSt',
           body: data
         })
