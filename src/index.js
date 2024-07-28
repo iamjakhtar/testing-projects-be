@@ -1,4 +1,3 @@
-import React from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AddProject from "./AddProject";
@@ -10,6 +9,8 @@ import reportWebVitals from "./reportWebVitals";
 import ProjectDetails from "./ProjectDetails";
 import EditProject from "./EditProject";
 import { ChakraBaseProvider } from "@chakra-ui/react";
+import RegisterUser from "./RegisterUser";
+import LoginUser from "./LoginUser";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,14 @@ const router = createBrowserRouter([
       {
         path: "edit-project/",
         element: <EditProject />
+      },
+      {
+        path: "register",
+        element: <RegisterUser />
+      },
+      {
+        path: "login",
+        element: <LoginUser onLogin={() => null }/>
       }
     ],
   },
@@ -44,14 +53,4 @@ createRoot(document.getElementById("root")).render(
   </RouterProvider>
 );
 
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>
-// );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

@@ -18,6 +18,8 @@ const Projects = () => {
 
     if (!projects) {
       return <div>Loading...</div>;
+    } else {
+      console.log(projects);
     }
 
   return (
