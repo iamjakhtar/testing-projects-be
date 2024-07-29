@@ -18,14 +18,16 @@ const Projects = () => {
 
     if (!projects) {
       return <div>Loading...</div>;
-    } else {
-      console.log(projects);
-    }
+    } 
 
   return (
     <div className="projects-container">
-      {!projects.length && <div>No projects to display</div>}
-      {projects.map((project) => (
+      {!projects.
+// @ts-ignore
+      length && <div>No projects to display</div>}
+      {projects.
+// @ts-ignore
+      map((project) => (
         <Project project={project} key={project.id}/>
       ))}
     </div>

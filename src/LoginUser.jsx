@@ -35,19 +35,21 @@ const LoginUser = ({ onLogin }) => {
         })
 
         if (!response.ok) {
-            throw new Error("Could not login, some error occured");
+            throw new Error(response.toString());
         }
 
-        const token = response.headers.get("Authorization").split(" ")[1];
+        const data = await response.json();
+        console.log(data);
         
-        if (token) {
-            localStorage.setItem("authToken", token);
-            onLogin();
+        
+        if (data) {
+            localStorage.setItem("userDetails", JSON.stringify(data));
+            onLogin(data);
             navigate("/");
         }
 
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
     }
   };
 
