@@ -1,27 +1,56 @@
-import { Box, Flex, Image } from "@chakra-ui/react";
+import { InfoOutlineIcon } from "@chakra-ui/icons";
+import { Box, Flex, Image, Heading, Text, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 const Project = ({ project }) => {
-  
   return (
-    <Box boxShadow="outline" p="6" rounded="md" bg="white">
-      <Flex key={project.id} maxW="sm" direction="column">
-        <h2 className="project-name">{project.name}</h2>
-        <p className="project-description">{project.description}</p>
-        <p className="project-budget">{project.budget}</p>
-        <Image
-          src={project.imageUrl}
-          alt={project.name}
-          objectFit="cover"
-          boxSize="280px"
-        />
-       
-          <Link to="/project-details" state={{ project }} className="button">
-            Details
-          </Link>
-         
+    <Box
+      boxShadow="md"
+      p="6"
+      rounded="lg"
+      bg="white"
+      maxW="sm"
+      borderWidth="1px"
+      overflow="hidden"
+      borderRadius="lg"
+    >
+      <Image
+        src={project.imageUrl}
+        alt={project.name}
+        objectFit="cover"
+        boxSize="auto"
+        mb={4}
+        borderRadius="md"
+      />
+      <Flex direction="column" p={2}>
+        <Heading as="h2" size="md" mb={2} color="teal.600">
+          {project.name}
+        </Heading>
+        <Text mb={2} color="gray.600">
+          {project.description}
+        </Text>
+        <Text mb={4} fontWeight="bold" color="teal.800">
+          Budget: ${project.budget}
+        </Text>
+        <Button
+          as={Link}
+          to="/project-details"
+          state={{ project }}
+          colorScheme="teal"
+          size="sm"
+          bg="teal.500"
+          color="white"
+          px={4}
+          py={2}
+          textTransform="uppercase"
+          rightIcon={<InfoOutlineIcon />}
+          _hover={{ bg: "teal.600" }}
+        >
+          Details
+        </Button>
       </Flex>
     </Box>
   );
 };
+
 export default Project;

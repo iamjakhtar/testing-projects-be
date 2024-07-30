@@ -1,74 +1,98 @@
-import { Menu, MenuButton, Button, Avatar, MenuList, MenuItem } from "@chakra-ui/react";
+import {
+  Menu,
+  MenuButton,
+  Button,
+  Avatar,
+  MenuList,
+  MenuItem,
+  Box,
+  Flex,
+  Heading,
+} from "@chakra-ui/react";
 import { NavLink, Outlet } from "react-router-dom";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
-import "./NavBar.css";
-
+import {
+  ArrowForwardIcon,
+  AddIcon,
+  InfoIcon,
+  HamburgerIcon,
+  EditIcon,
+} from "@chakra-ui/icons";
 
 const getInitials = (userName) => {
   const names = userName.split(" ");
-  return names.map(name => name[0]).join("").toUpperCase();
+  return names
+    .map((name) => name[0])
+    .join("")
+    .toUpperCase();
 };
 
 const NavBar = ({ loggedIn, name, onLogout }) => {
-
   return (
     <>
-      <header className="nav-header">
-        <NavLink to="/" className="header-logo">
-          <h3>Projects Demo</h3>
-        </NavLink>
-        <nav>
-          <ul>
-            <li>
-              <NavLink to="/">Projects</NavLink>
-            </li>
-            <li>
-              <NavLink to="/add-project">New Project</NavLink>
-            </li>
+      <Box bg="teal.500" color="white" p={4} mb={8}>
+        <Flex align="center" justify="space-between">
+          <NavLink to="/" style={{ textDecoration: "none" }}>
+            <Heading as="h3" size="lg" color="white">
+              Projects Demo
+            </Heading>
+          </NavLink>
+          <Flex align="center">
+            <NavLink
+              to="/"
+              style={{ textDecoration: "none", marginRight: "15px" }}
+            >
+              <Button leftIcon={<InfoIcon />} variant="link" color="white">
+                Projects
+              </Button>
+            </NavLink>
+            <NavLink
+              to="/add-project"
+              style={{ textDecoration: "none", marginRight: "15px" }}
+            >
+              <Button leftIcon={<AddIcon />} variant="link" color="white">
+                New Project
+              </Button>
+            </NavLink>
             {loggedIn ? (
               <Menu>
-                <MenuButton
-                  as={Button}
-                  bg="transparent"
-                  border="none"
-                  _hover={{ bg: "transparent" }}
-                >
-                  <Avatar
-                    name={name}
-                    size="sm"
-                    bg="teal.500"
-                    color="white"
-                    src=""
-                    style={{ width: '40px', height: '40px', borderRadius: '50%'}}
-                  >
+                <MenuButton as={Button} variant="link" color="white">
+                  <Avatar name={name} size="sm" bg="teal.700" color="white" w="40px" h="40px" border={2} borderColor={"white"}>
                     {getInitials(name)}
                   </Avatar>
                 </MenuButton>
-                <MenuList width="100px" minHeight="100px" border="1px" borderColor="grey.100">
-                  <MenuItem 
-                  onClick={onLogout} 
-                  padding="10px" 
-                  bg="teal.500" 
-                  color="whitesmoke" 
-                  _hover={{ bg: "teal.300"}} 
-                  >Logout
-                  <ArrowForwardIcon w={10} h={5} color={"whitesmoke"}/>
+                <MenuList bg="teal.500" h="auto" p={2} minW={220} mt={4}>
+                  <MenuItem onClick={onLogout} icon={<ArrowForwardIcon />}>
+                    Logout
                   </MenuItem>
                 </MenuList>
               </Menu>
             ) : (
-              <li>
-                <NavLink to="/login">Login</NavLink>
-              </li>
+              <>
+                <NavLink
+                  to="/login"
+                  style={{ textDecoration: "none", marginRight: "15px" }}
+                >
+                  <Button leftIcon={<EditIcon />} variant="link" color="white">
+                    Login
+                  </Button>
+                </NavLink>
+                <NavLink to="/register" style={{ textDecoration: "none" }}>
+                  <Button
+                    leftIcon={<HamburgerIcon />}
+                    variant="link"
+                    color="white"
+                  >
+                    Register
+                  </Button>
+                </NavLink>
+              </>
             )}
-            <li>
-              <NavLink to="/register">Register</NavLink>
-            </li>
-          </ul>
-        </nav>
-      </header>
+          </Flex>
+        </Flex>
+      </Box>
       <Outlet />
     </>
   );
 };
+
 export default NavBar;
