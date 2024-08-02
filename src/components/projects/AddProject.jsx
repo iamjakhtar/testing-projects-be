@@ -11,6 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FormInput from "../common/FormInput";
+import { inputStyles } from "../common/styles/inputStyles";
 
 export const defaultFormData = {
   name: "",
@@ -129,15 +130,8 @@ const AddProject = () => {
             placeholder="Enter project name"
             isRequired
             shadow="md"
-            bg="white"
-            borderColor="gray.300"
-            _hover={{ borderColor: "teal.500" }}
-            _focus={{
-              borderColor: "teal.500",
-              boxShadow: "0 0 0 1px teal.500",
-            }}
-            p={4}
             width="100%"
+            styles={inputStyles}
           />
 
           <FormInput
@@ -150,15 +144,7 @@ const AddProject = () => {
             handleChange={handleChange}
             textArea
             shadow="md"
-            bg="white"
-            borderColor="gray.300"
-            _hover={{ borderColor: "teal.500" }}
-            _focus={{
-              borderColor: "teal.500",
-              boxShadow: "0 0 0 1px teal.500",
-            }}
-            p={4}
-            width="100%"
+            styles={inputStyles}
           />
 
           <FormInput
@@ -170,16 +156,8 @@ const AddProject = () => {
             value={budget}
             placeholder="Enter project budget"
             handleChange={handleChange}
-            bg="white"
-            borderColor="gray.300"
-            _hover={{ borderColor: "teal.500" }}
-            _focus={{
-              borderColor: "teal.500",
-              boxShadow: "0 0 0 1px teal.500",
-            }}
-            p={4}
-            width="100%"
             shadow="md"
+            styles={inputStyles}
           />
 
           <FormInput
@@ -189,16 +167,8 @@ const AddProject = () => {
             isRequired
             name="image"
             handleChange={handleChange}
-            bg="white"
-            borderColor="gray.300"
-            _hover={{ borderColor: "teal.500" }}
-            _focus={{
-              borderColor: "teal.500",
-              boxShadow: "0 0 0 1px teal.500",
-            }}
-            p={4}
-            width="100%"
             shadow="md"
+            styles={inputStyles}
           />
 
           <Button

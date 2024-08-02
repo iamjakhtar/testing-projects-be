@@ -11,6 +11,7 @@ const FormInput = ({
   handleChange,
   isRequired = false,
   shadow,
+  styles = {},
   ...rest
 }) => {
   return (
@@ -20,7 +21,7 @@ const FormInput = ({
       width="100%"
       boxShadow={shadow}
     >
-      <FormLabel >{label}</FormLabel>
+      <FormLabel>{label}</FormLabel>
       {textArea ? (
         <Textarea
           name={name}
@@ -28,16 +29,18 @@ const FormInput = ({
           onChange={handleChange}
           placeholder={placeholder}
           {...rest}
+          {...styles}
         />
       ) : (
         <Input
           type={type}
           name={name}
-          value={value === 'file' ? undefined : value}
+          value={value === "file" ? undefined : value}
           onChange={handleChange}
           placeholder={placeholder}
           {...rest}
-          { ...(type === 'file' && { accept: "image/*"})}
+          {...styles}
+          {...(type === "file" && { accept: "image/*" })}
         />
       )}
     </FormControl>

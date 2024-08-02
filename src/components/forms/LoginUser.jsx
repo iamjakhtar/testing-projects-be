@@ -1,16 +1,15 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { LockIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
-  FormControl,
-  FormLabel,
-  Input,
-  VStack,
   Heading,
   useToast,
+  VStack
 } from "@chakra-ui/react";
-import { LockIcon } from "@chakra-ui/icons";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import FormInput from "../common/FormInput";
+import { inputStyles } from "../common/styles/inputStyles";
 
 const defaultValues = {
   username: "",
@@ -73,50 +72,40 @@ const LoginUser = ({ onLogin }) => {
       borderRadius="md"
       mt={8}
     >
-      <Heading size="lg" mb={4} color="teal.600" fontSize={24} fontWeight="bold">
+      <Heading
+        size="lg"
+        mb={4}
+        color="teal.600"
+        fontSize={24}
+        fontWeight="bold"
+      >
         Login
       </Heading>
       <Box as="form" width="100%" onSubmit={handleLogin}>
         <VStack spacing={4}>
-          <FormControl id="username" isRequired width="100%">
-            <FormLabel>Username</FormLabel>
-            <Input
-              type="text"
-              name="username"
-              value={username}
-              onChange={handleChange}
-              placeholder="Enter your username"
-              bg="white"
-              borderColor="gray.300"
-              _hover={{ borderColor: "teal.500" }}
-              _focus={{
-                borderColor: "teal.500",
-                boxShadow: "0 0 0 1px teal.500",
-              }}
-              p={4}
-              width="100%"
-            />
-          </FormControl>
+          <FormInput
+            id="username"
+            isRequired
+            label="Username"
+            name="username"
+            value={username}
+            placeholder="Enter your username"
+            handleChange={handleChange}
+            shadow="md"
+            styles={inputStyles}
+          />
 
-          <FormControl id="password" isRequired width="100%">
-            <FormLabel>Password</FormLabel>
-            <Input
-              type="password"
-              name="password"
-              value={password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-              bg="white"
-              borderColor="gray.300"
-              _hover={{ borderColor: "teal.500" }}
-              _focus={{
-                borderColor: "teal.500",
-                boxShadow: "0 0 0 1px teal.500",
-              }}
-              p={4}
-              width="100%"
-            />
-          </FormControl>
+          <FormInput
+            id="password"
+            isRequired
+            label="password"
+            name="password"
+            value={password}
+            placeholder="Enter your password"
+            handleChange={handleChange}
+            shadow="md"
+            styles={inputStyles}
+          />
 
           <Button
             type="submit"
