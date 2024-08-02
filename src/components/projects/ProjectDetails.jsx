@@ -9,11 +9,12 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, InfoOutlineIcon } from "@chakra-ui/icons";
-import Spinner from "./Spinner";
+import Spinner from "../common/Spinner";
 
 const ProjectDetails = () => {
-  const { state } = useLocation();
-  const { project } = state;
+  const {
+    state: { project },
+  } = useLocation();
   const navigate = useNavigate();
   const imagePath = project.imageUrl;
   const toast = useToast();
@@ -27,8 +28,8 @@ const ProjectDetails = () => {
       const response = await fetch("http://localhost:8080/projects/" + id, {
         method: "DELETE",
         headers: {
-          "Authorization": "Bearer " + userDetails.token
-        }
+          Authorization: "Bearer " + userDetails.token,
+        },
       });
       if (!response.ok) {
         throw new Error("Could not delete the project with id: " + id);
@@ -54,7 +55,7 @@ const ProjectDetails = () => {
   };
 
   if (!project) {
-    return <Spinner />
+    return <Spinner />;
   }
 
   return (

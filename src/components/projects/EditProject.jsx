@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { defaultFormData } from "./AddProject";
+
 import {
   Box,
   Text,
@@ -15,6 +15,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { CheckIcon, InfoOutlineIcon } from "@chakra-ui/icons";
+import { defaultFormData } from "./AddProject";
 
 const fetchProjectById = async (id, setterFunc) => {
   try {
@@ -70,14 +71,13 @@ const EditProject = () => {
     }
 
     try {
-
       if (!authToken) {
-        throw new Error("403 forbidden")
+        throw new Error("403 forbidden");
       }
       const response = await fetch("http://localhost:8080/projects/" + id, {
         method: "PUT",
         headers: {
-          "Authorization": "Bearer " + authToken
+          Authorization: "Bearer " + authToken,
         },
         body: data,
       });

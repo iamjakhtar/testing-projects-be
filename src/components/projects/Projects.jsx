@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Project from "./Project";
 import { SimpleGrid, Box, Text } from "@chakra-ui/react";
-import Spinner from "./Spinner";
+import Spinner from "../common/Spinner";
 
 const fetchProjects = async (url, setterFunc) => {
   const res = await fetch(url);
@@ -26,21 +26,22 @@ const Projects = () => {
 
   return (
     <Box p={4}>
-      {projects.
-// @ts-ignore
-      length === 0 ? (
-        <Box textAlign="center" m={10}>
-          <Text>No projects to display</Text>
-        </Box>
-      ) : (
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing={5}>
-          {projects.
-// @ts-ignore
-          map((project) => (
-            <Project project={project} key={project.id} />
-          ))}
-        </SimpleGrid>
-      )}
+      {
+        // @ts-ignore
+        projects.length === 0 ? (
+          <Box textAlign="center" m={10}>
+            <Text>No projects to display</Text>
+          </Box>
+        ) : (
+          <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing={5}>
+            {projects
+              // @ts-ignore
+              .map((project) => (
+                <Project project={project} key={project.id} />
+              ))}
+          </SimpleGrid>
+        )
+      }
     </Box>
   );
 };

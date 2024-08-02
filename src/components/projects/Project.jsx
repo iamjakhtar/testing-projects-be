@@ -1,6 +1,7 @@
 import { InfoOutlineIcon } from "@chakra-ui/icons";
 import { Box, Flex, Image, Heading, Text, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { truncateString } from "../../utils/truncateString";
 
 const Project = ({ project }) => {
   return (
@@ -18,7 +19,8 @@ const Project = ({ project }) => {
         src={project.imageUrl}
         alt={project.name}
         objectFit="cover"
-        boxSize="auto"
+        h={217}
+        w={327}
         mb={4}
         borderRadius="md"
       />
@@ -27,7 +29,7 @@ const Project = ({ project }) => {
           {project.name}
         </Heading>
         <Text mb={2} color="gray.600">
-          {project.description}
+          {truncateString(project.description, 40)}
         </Text>
         <Text mb={4} fontWeight="bold" color="teal.800">
           Budget: ${project.budget}

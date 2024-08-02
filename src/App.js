@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import NavBar from "./NavBar";
-import LoginUser from "./LoginUser";
+import NavBar from "./components/layout/NavBar";
+import LoginUser from "./components/forms/LoginUser";
 import { Outlet } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
-import Projects from "./Projects";
-import AddProject from "./AddProject";
-import ProjectDetails from "./ProjectDetails";
-import EditProject from "./EditProject";
-import RegisterUser from "./RegisterUser";
+import Projects from "./components/projects/Projects";
+import AddProject from "./components/projects/AddProject";
+import ProjectDetails from "./components/projects/ProjectDetails";
+import EditProject from "./components/projects/EditProject";
+import RegisterUser from "./components/forms/RegisterUser";
 import { Box } from "@chakra-ui/react";
-
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -24,19 +23,17 @@ function App() {
     }
   }, []);
 
-  
   const onLogin = (userDetails) => {
-      setIsAuthenticated(true);
-      setUserName(userDetails.name);
-      localStorage.setItem("userDetails", JSON.stringify(userDetails));
-  }
+    setIsAuthenticated(true);
+    setUserName(userDetails.name);
+    localStorage.setItem("userDetails", JSON.stringify(userDetails));
+  };
 
   const onLogout = () => {
     setIsAuthenticated(false);
     setUserName("");
     localStorage.removeItem("userDetails");
-  }
-
+  };
 
   return (
     <Box className="App" bg="gray.100" minH="100vh" p={4}>
