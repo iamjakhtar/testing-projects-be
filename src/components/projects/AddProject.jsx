@@ -1,19 +1,16 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { AddIcon, CheckCircleIcon, InfoOutlineIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Text,
   Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
-  Stack,
-  useToast,
-  VStack,
   Heading,
+  Stack,
+  Text,
+  useToast,
+  VStack
 } from "@chakra-ui/react";
-import { AddIcon, CheckCircleIcon, InfoOutlineIcon } from "@chakra-ui/icons";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import FormInput from "../common/FormInput";
 
 export const defaultFormData = {
   name: "",
@@ -37,19 +34,18 @@ const AddProject = () => {
     }));
   };
 
-
   useEffect(() => {
     const userDetails = JSON.parse(localStorage.getItem("userDetails"));
     if (userDetails) {
       setAuthToken(userDetails.token);
     }
-  }, [])
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (!authToken) {
-        throw new Error("Your token has expired, please login again")
+        throw new Error("Your token has expired, please login again");
       }
       const data = new FormData();
       data.append("name", name);
@@ -62,7 +58,7 @@ const AddProject = () => {
       const response = await fetch("http://localhost:8080/projects", {
         method: "POST",
         headers: {
-          "Authorization": "Bearer " + authToken
+          Authorization: "Bearer " + authToken,
         },
         body: data,
       });
@@ -97,7 +93,7 @@ const AddProject = () => {
           <Box color={"white"} bg="red.500" p={2}>
             <Heading size="m">
               {" "}
-              <InfoOutlineIcon mr={2} mt={-1}/>
+              <InfoOutlineIcon mr={2} mt={-1} />
               Error {error.message}
             </Heading>
             <Text>Failed to add project</Text>
@@ -124,83 +120,86 @@ const AddProject = () => {
       </Heading>
       <Box as="form" width="100%" onSubmit={handleSubmit}>
         <Stack spacing={4}>
-          <FormControl id="name" isRequired boxShadow="md">
-            <FormLabel>Name</FormLabel>
-            <Input
-              type="text"
-              name="name"
-              value={name}
-              onChange={handleChange}
-              placeholder="Enter project name"
-              bg="white"
-              borderColor="gray.300"
-              _hover={{ borderColor: "teal.500" }}
-              _focus={{
-                borderColor: "teal.500",
-                boxShadow: "0 0 0 1px teal.500",
-              }}
-              p={4}
-              width="100%"
-            />
-          </FormControl>
+          <FormInput
+            id="name"
+            label="Name"
+            name="name"
+            value={name}
+            handleChange={handleChange}
+            placeholder="Enter project name"
+            isRequired
+            shadow="md"
+            bg="white"
+            borderColor="gray.300"
+            _hover={{ borderColor: "teal.500" }}
+            _focus={{
+              borderColor: "teal.500",
+              boxShadow: "0 0 0 1px teal.500",
+            }}
+            p={4}
+            width="100%"
+          />
 
-          <FormControl id="description" isRequired boxShadow="md">
-            <FormLabel>Description</FormLabel>
-            <Textarea
-              name="description"
-              value={description}
-              onChange={handleChange}
-              placeholder="Enter project description"
-              bg="white"
-              borderColor="gray.300"
-              _hover={{ borderColor: "teal.500" }}
-              _focus={{
-                borderColor: "teal.500",
-                boxShadow: "0 0 0 1px teal.500",
-              }}
-              p={4}
-              width="100%"
-            />
-          </FormControl>
+          <FormInput
+            id="description"
+            isRequired
+            label="Description"
+            name="description"
+            value={description}
+            placeholder="Enter project description"
+            handleChange={handleChange}
+            textArea
+            shadow="md"
+            bg="white"
+            borderColor="gray.300"
+            _hover={{ borderColor: "teal.500" }}
+            _focus={{
+              borderColor: "teal.500",
+              boxShadow: "0 0 0 1px teal.500",
+            }}
+            p={4}
+            width="100%"
+          />
 
-          <FormControl id="budget" isRequired boxShadow="md">
-            <FormLabel>Budget</FormLabel>
-            <Input
-              type="number"
-              name="budget"
-              value={budget}
-              onChange={handleChange}
-              placeholder="Enter project budget"
-              bg="white"
-              borderColor="gray.300"
-              _hover={{ borderColor: "teal.500" }}
-              _focus={{
-                borderColor: "teal.500",
-                boxShadow: "0 0 0 1px teal.500",
-              }}
-              p={4}
-              width="100%"
-            />
-          </FormControl>
+          <FormInput
+            id="number"
+            type="number"
+            label="Budget"
+            name="budget"
+            isRequired
+            value={budget}
+            placeholder="Enter project budget"
+            handleChange={handleChange}
+            bg="white"
+            borderColor="gray.300"
+            _hover={{ borderColor: "teal.500" }}
+            _focus={{
+              borderColor: "teal.500",
+              boxShadow: "0 0 0 1px teal.500",
+            }}
+            p={4}
+            width="100%"
+            shadow="md"
+          />
 
-          <FormControl id="image" boxShadow="md">
-            <FormLabel>Upload Image</FormLabel>
-            <Input
-              type="file"
-              name="image"
-              onChange={handleChange}
-              accept="image/*"
-              bg="white"
-              borderColor="gray.300"
-              _hover={{ borderColor: "teal.500" }}
-              _focus={{
-                borderColor: "teal.500",
-                boxShadow: "0 0 0 1px teal.500",
-              }}
-              p={4}
-              width="100%"
-            />
-          </FormControl>
+          <FormInput
+            id="image"
+            type="file"
+            label="Upload Image"
+            isRequired
+            name="image"
+            handleChange={handleChange}
+            bg="white"
+            borderColor="gray.300"
+            _hover={{ borderColor: "teal.500" }}
+            _focus={{
+              borderColor: "teal.500",
+              boxShadow: "0 0 0 1px teal.500",
+            }}
+            p={4}
+            width="100%"
+            shadow="md"
+          />
 
           <Button
             type="submit"
