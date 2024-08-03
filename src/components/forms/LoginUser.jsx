@@ -98,7 +98,7 @@ const LoginUser = ({ onLogin }) => {
           <FormInput
             id="password"
             isRequired
-            label="password"
+            label="Password"
             name="password"
             value={password}
             placeholder="Enter your password"
@@ -114,7 +114,8 @@ const LoginUser = ({ onLogin }) => {
             bg="teal.500"
             color="white"
             _hover={{ bg: "teal.600" }}
-            width="100%"
+            width="50%"
+            borderRadius={50}
             leftIcon={<LockIcon />}
             p={2}
           >

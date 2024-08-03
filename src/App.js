@@ -10,6 +10,7 @@ import ProjectDetails from "./components/projects/ProjectDetails";
 import EditProject from "./components/projects/EditProject";
 import RegisterUser from "./components/forms/RegisterUser";
 import { Box } from "@chakra-ui/react";
+import Footer from "./components/layout/Footer";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -38,7 +39,7 @@ function App() {
   return (
     <Box className="App" bg="gray.100" minH="100vh" p={4}>
       <NavBar loggedIn={isAuthenticated} name={userName} onLogout={onLogout} />
-      <Box p={2}>
+      <Box p={4} mb={12}>
         <Routes>
           <Route path="/" element={<Projects />} />
           <Route path="/add-project" element={<AddProject />} />
@@ -49,6 +50,7 @@ function App() {
         </Routes>
         <Outlet />
       </Box>
+      <Footer />
     </Box>
   );
 }

@@ -150,7 +150,8 @@ const RegisterUser = () => {
             bg="teal.500"
             color="white"
             _hover={{ bg: "teal.600" }}
-            width="100%"
+            width="50%"
+            borderRadius={50}
             leftIcon={<EditIcon />}
             p={2}
           >

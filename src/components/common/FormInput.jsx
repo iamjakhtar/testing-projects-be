@@ -21,7 +21,7 @@ const FormInput = ({
       width="100%"
       boxShadow={shadow}
     >
-      <FormLabel>{label}</FormLabel>
+      <FormLabel color="teal.500" fontWeight="bold" bg="gray.100">{label}</FormLabel>
       {textArea ? (
         <Textarea
           name={name}

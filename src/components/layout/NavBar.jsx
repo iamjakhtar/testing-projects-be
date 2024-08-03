@@ -8,6 +8,7 @@ import {
   Box,
   Flex,
   Heading,
+  Image,
 } from "@chakra-ui/react";
 import { NavLink, Outlet } from "react-router-dom";
 import {
@@ -17,6 +18,8 @@ import {
   HamburgerIcon,
   EditIcon,
 } from "@chakra-ui/icons";
+
+import logo from '../../assets/images/logo.png';
 
 const getInitials = (userName) => {
   const names = userName.split(" ");
@@ -32,9 +35,12 @@ const NavBar = ({ loggedIn, name, onLogout }) => {
       <Box bg="teal.500" color="white" p={4} mb={8}>
         <Flex align="center" justify="space-between">
           <NavLink to="/" style={{ textDecoration: "none" }}>
-            <Heading as="h3" size="lg" color="white">
-              Projects Demo
-            </Heading>
+            <Flex justify="center" align="center">
+              <Image src={logo} boxSize="48px" borderWidth={1} borderColor="white"/>
+              <Heading as="h3" size="lg" color="white">
+                Projects ideas
+              </Heading>
+            </Flex>
           </NavLink>
           <Flex align="center">
             <NavLink
