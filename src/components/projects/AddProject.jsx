@@ -1,15 +1,9 @@
 import { AddIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Button,
-  Heading,
-  Stack,
-  VStack
-} from "@chakra-ui/react";
+import { Box, Button, Heading, Stack, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FormInput from "../common/FormInput";
-import { inputStyles } from "../common/styles/inputStyles";
+import { inputStyles } from "../../assets/styles/inputStyles";
 import ToastNotification from "../common/ToastNotification";
 
 export const defaultFormData = {
@@ -25,7 +19,6 @@ const AddProject = () => {
   const { name, description, budget, image } = formData;
   const [toastData, setToastData] = useState(null);
   const navigate = useNavigate();
-
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -73,18 +66,17 @@ const AddProject = () => {
         setToastData({
           title: "Success",
           description: `${returnedData.name} project added successfully`,
-          status: "success"
+          status: "success",
         });
-        
+
         setTimeout(() => navigate("/"), 500);
       }
     } catch (error) {
-      
       setToastData({
         title: "Error",
         description: `${error.message}: failed to add project.`,
-        status: "error"
-      })
+        status: "error",
+      });
     }
   };
 
@@ -169,7 +161,7 @@ const AddProject = () => {
           </Button>
         </Stack>
       </Box>
-      { toastData && <ToastNotification {...toastData} />}
+      {toastData && <ToastNotification {...toastData} />}
     </VStack>
   );
 };

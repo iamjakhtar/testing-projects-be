@@ -1,8 +1,9 @@
 import { EditIcon } from "@chakra-ui/icons";
-import { Box, Button, Heading, useToast, VStack } from "@chakra-ui/react";
+import { Box, Button, Heading, VStack } from "@chakra-ui/react";
 import { useState } from "react";
+import { inputStyles } from "../../assets/styles/inputStyles";
 import FormInput from "../common/FormInput";
-import { inputStyles } from "../common/styles/inputStyles";
+import ToastNotification from "../common/ToastNotification";
 
 const defaultValues = {
   name: "",
@@ -13,7 +14,7 @@ const defaultValues = {
 
 const RegisterUser = () => {
   const [formData, setFormData] = useState(defaultValues);
-  const toast = useToast();
+  const [toastData, setToastData] = useState(null);
 
   const { name, username, password, confirmPassword } = formData;
 
@@ -30,12 +31,10 @@ const RegisterUser = () => {
     const { confirmPassword, ...registerDto } = formData;
 
     if (password !== confirmPassword) {
-      toast({
+      setToastData({
         title: "Error",
         description: "Passwords do not match.",
         status: "error",
-        duration: 5000,
-        isClosable: true,
       });
       return;
     }
@@ -54,21 +53,17 @@ const RegisterUser = () => {
       }
 
       const data = await response.text();
-      toast({
-        title: "Registration Successful",
+      setToastData({
+        title: "Success",
         description: data,
         status: "success",
-        duration: 5000,
-        isClosable: true,
       });
       setFormData(defaultValues);
     } catch (error) {
-      toast({
+      setToastData({
         title: "Error",
         description: error.message,
         status: "error",
-        duration: 5000,
-        isClosable: true,
       });
     }
   };
@@ -122,6 +117,7 @@ const RegisterUser = () => {
           <FormInput
             id="password"
             isRequired
+            type="password"
             label="Password"
             name="password"
             value={password}
@@ -132,7 +128,8 @@ const RegisterUser = () => {
           />
 
           <FormInput
-            id="password"
+            id="confirmPassword"
+            type="password"
             isRequired
             label="Confirm Password"
             name="confirmPassword"
@@ -159,6 +156,7 @@ const RegisterUser = () => {
           </Button>
         </VStack>
       </Box>
+      { toastData && <ToastNotification {...toastData} />}
     </VStack>
   );
 };

@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { CheckIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Text,
   Button,
+  Flex,
   FormControl,
   FormLabel,
-  Input,
-  VStack,
   Heading,
-  useToast,
   Image,
-  Flex,
+  Input,
+  VStack
 } from "@chakra-ui/react";
-import { CheckIcon, InfoOutlineIcon } from "@chakra-ui/icons";
+import ToastNotification from "../common/ToastNotification";
 import { defaultFormData } from "./AddProject";
 
 const fetchProjectById = async (id, setterFunc) => {
@@ -37,7 +36,7 @@ const EditProject = () => {
   const { id } = state || {};
   const [projectToEdit, setProjectToEdit] = useState(defaultFormData);
   const [authToken, setAuthToken] = useState("");
-  const toast = useToast();
+  const [toastData, setToastData] = useState(null);
 
   useEffect(() => {
     if (id) {
@@ -82,32 +81,25 @@ const EditProject = () => {
         body: data,
       });
       if (response.ok) {
+        setToastData({
+          title: "Success",
+          description: `Project with id ${id} updated.`,
+          status: 'success'
+        })
         navigate("/");
       } else {
         console.error("Failed to update project");
-        toast({
+        setToastData({
           title: "Error",
           description: "Failed to update project.",
           status: "error",
-          duration: 5000,
-          isClosable: true,
         });
       }
     } catch (error) {
-      toast({
-        position: "bottom-left",
-        render: () => (
-          <Box color={"white"} bg="red.500" p={2}>
-            <Heading size="m">
-              {" "}
-              <InfoOutlineIcon mr={2} mt={-1} />
-              Error {error.message}
-            </Heading>
-            <Text>Failed to update project</Text>
-          </Box>
-        ),
-        isClosable: true,
-        duration: 4000,
+      setToastData({
+        title: "Error",
+        description: "Failed to update project.",
+        status: "error",
       });
     }
   };
@@ -266,6 +258,7 @@ const EditProject = () => {
           </VStack>
         </Flex>
       </Box>
+      { toastData && <ToastNotification {...toastData} />}
     </Flex>
   );
 };

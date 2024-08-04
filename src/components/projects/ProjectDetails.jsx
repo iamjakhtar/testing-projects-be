@@ -1,15 +1,16 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Flex,
-  Image,
-  Heading,
-  Text,
   Button,
-  useToast,
+  Flex,
+  Heading,
+  Image,
+  Text
 } from "@chakra-ui/react";
-import { EditIcon, DeleteIcon, InfoOutlineIcon } from "@chakra-ui/icons";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Spinner from "../common/Spinner";
+import ToastNotification from "../common/ToastNotification";
 
 const ProjectDetails = () => {
   const {
@@ -17,7 +18,7 @@ const ProjectDetails = () => {
   } = useLocation();
   const navigate = useNavigate();
   const imagePath = project.imageUrl;
-  const toast = useToast();
+  const [toastData, setToastData] = useState(null);
 
   const handleDelete = async (id) => {
     try {
@@ -38,18 +39,10 @@ const ProjectDetails = () => {
       console.log(data);
       return navigate("/");
     } catch (error) {
-      toast({
-        isClosable: true,
-        duration: 4000,
-        position: "bottom-left",
-        render: () => (
-          <Box bg="red.500" p={2} color="white">
-            <Heading size="sm">
-              <InfoOutlineIcon mr={2} /> Error {error.message}
-            </Heading>
-            <Text>Failed to delete the project</Text>
-          </Box>
-        ),
+      setToastData({
+        title: "Error",
+        description: "Failed to fetch project!",
+        status: "error"
       });
     }
   };
@@ -117,6 +110,7 @@ const ProjectDetails = () => {
           </Flex>
         </Flex>
       </Flex>
+      { toastData && <ToastNotification {...toastData}/> }
     </Box>
   );
 };

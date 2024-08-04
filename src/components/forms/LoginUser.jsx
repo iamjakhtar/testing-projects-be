@@ -1,15 +1,10 @@
 import { LockIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Button,
-  Heading,
-  useToast,
-  VStack
-} from "@chakra-ui/react";
+import { Box, Button, Heading, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { inputStyles } from "../../assets/styles/inputStyles";
 import FormInput from "../common/FormInput";
-import { inputStyles } from "../common/styles/inputStyles";
+import ToastNotification from "../common/ToastNotification";
 
 const defaultValues = {
   username: "",
@@ -19,7 +14,7 @@ const defaultValues = {
 const LoginUser = ({ onLogin }) => {
   const [formData, setFormData] = useState(defaultValues);
   const navigate = useNavigate();
-  const toast = useToast();
+  const [toastData, setToastData] = useState(null);
 
   const { username, password } = formData;
 
@@ -43,20 +38,23 @@ const LoginUser = ({ onLogin }) => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to login");
+        throw response;
       }
 
       const data = await response.json();
       localStorage.setItem("userDetails", JSON.stringify(data));
       onLogin(data);
+      setToastData({
+        title: "Success",
+        description: "You have logged in successfully.",
+        status: "success"
+      })
       navigate("/");
     } catch (error) {
-      toast({
+      setToastData({
         title: "Error",
-        description: error.message,
+        description: error,
         status: "error",
-        duration: 5000,
-        isClosable: true,
       });
     }
   };
@@ -97,6 +95,7 @@ const LoginUser = ({ onLogin }) => {
 
           <FormInput
             id="password"
+            type="password"
             isRequired
             label="Password"
             name="password"
@@ -123,6 +122,7 @@ const LoginUser = ({ onLogin }) => {
           </Button>
         </VStack>
       </Box>
+      { toastData && <ToastNotification {...toastData} />}
     </VStack>
   );
 };
