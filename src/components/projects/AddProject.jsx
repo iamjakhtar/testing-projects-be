@@ -1,17 +1,16 @@
-import { AddIcon, CheckCircleIcon, InfoOutlineIcon } from "@chakra-ui/icons";
+import { AddIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Heading,
   Stack,
-  Text,
-  useToast,
   VStack
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FormInput from "../common/FormInput";
 import { inputStyles } from "../common/styles/inputStyles";
+import ToastNotification from "../common/ToastNotification";
 
 export const defaultFormData = {
   name: "",
@@ -24,8 +23,9 @@ const AddProject = () => {
   const [formData, setFormData] = useState(defaultFormData);
   const [authToken, setAuthToken] = useState("");
   const { name, description, budget, image } = formData;
+  const [toastData, setToastData] = useState(null);
   const navigate = useNavigate();
-  const toast = useToast();
+
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -70,39 +70,21 @@ const AddProject = () => {
 
       const returnedData = await response.json();
       if (returnedData) {
-        toast({
-          position: "bottom-left",
-          render: () => (
-            <Box color={"white"} bg="green.500" p={2}>
-              <Heading size="m" color="white">
-                {" "}
-                <CheckCircleIcon mr={2} mt={-1} color="green.500" />
-                Success
-              </Heading>
-              <Text>{`${returnedData.name} Project added successfully`}</Text>
-            </Box>
-          ),
-          isClosable: true,
-          duration: 4000,
+        setToastData({
+          title: "Success",
+          description: `${returnedData.name} project added successfully`,
+          status: "success"
         });
+        
         setTimeout(() => navigate("/"), 500);
       }
     } catch (error) {
-      toast({
-        position: "bottom-left",
-        render: () => (
-          <Box color={"white"} bg="red.500" p={2}>
-            <Heading size="m">
-              {" "}
-              <InfoOutlineIcon mr={2} mt={-1} />
-              Error {error.message}
-            </Heading>
-            <Text>Failed to add project</Text>
-          </Box>
-        ),
-        isClosable: true,
-        duration: 4000,
-      });
+      
+      setToastData({
+        title: "Error",
+        description: `${error.message}: failed to add project.`,
+        status: "error"
+      })
     }
   };
 
@@ -187,6 +169,7 @@ const AddProject = () => {
           </Button>
         </Stack>
       </Box>
+      { toastData && <ToastNotification {...toastData} />}
     </VStack>
   );
 };
