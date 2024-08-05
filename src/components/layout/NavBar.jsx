@@ -32,7 +32,7 @@ const getInitials = (userName) => {
 const NavBar = ({ loggedIn, name, onLogout }) => {
   return (
     <>
-      <Box bg="teal.500" color="white" p={4} mb={8}>
+      <Box bg="teal.500" color="white" p={2} mb={8}>
         <Flex align="center" justify="space-between">
           <NavLink to="/" style={{ textDecoration: "none" }}>
             <Flex justify="center" align="center">

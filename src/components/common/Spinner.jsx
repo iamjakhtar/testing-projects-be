@@ -12,7 +12,7 @@ const Spinner = () => {
       justifyContent="center"
       alignItems="center"
       height="100vh"
-      width="100vw"
+      width="90%"
     >
       <Box position="relative" width="100px" height="100px">
         {/* Outer Circle */}
